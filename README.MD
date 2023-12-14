@@ -8,8 +8,6 @@ I may make a nice resume portfolio as this one is filled with my own stuff but f
 Please [http://www.leonfardell.com.au](My Resume) to see it
 
 ## Table of Contents
-
-- [Project Title](#project-title)
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Example Installation Steps](#example-installation-steps)
