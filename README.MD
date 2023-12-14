@@ -1,11 +1,7 @@
-# Project Title
+# Personal Resume
 
 This is my personal resume and soon to be portfolio. It's fairly simple but gets the point across
-This source is open freely for use for any wanting a simple web resume. 
 
-I may make a nice resume portfolio as this one is filled with my own stuff but feel free to remove!
-
-Please [http://www.leonfardell.com.au](My Resume) to see it
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -14,6 +10,11 @@ Please [http://www.leonfardell.com.au](My Resume) to see it
 
 ## Introduction
 
+This source is open freely for use for any wanting a simple web resume. 
+
+I may make a nice resume portfolio as this one is filled with my own stuff but feel free to remove!
+
+Please [http://www.leonfardell.com.au](My Resume) to see it
 
 ## Installation
 
