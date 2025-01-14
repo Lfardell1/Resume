@@ -24,7 +24,7 @@ Provide detailed steps on how to install or set up the project. Include any prer
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/username/repository.git
+    https://github.com/Lfardell1/Resume.git
     ```
 
 2. Install dependencies:
