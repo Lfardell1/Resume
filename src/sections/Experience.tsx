@@ -1,21 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Award, ChevronDown, TrendingUp, CheckCircle } from 'react-feather';
+import { Award, ChevronDown, TrendingUp, CheckCircle, ExternalLink } from 'react-feather';
 import { experienceData } from "../data/experienceData";
 
 const Experience = () => {
   // Track expanded state for each experience item
   const [expandedStates, setExpandedStates] = useState<{ [key: number]: boolean }>({});
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   const toggleAchievements = (index: number) => {
     setExpandedStates(prev => ({
@@ -61,6 +51,45 @@ const Experience = () => {
                       </div>
                     </div>
                   </div>
+
+                  {/* Ingenium Systems Notice - Moved here */}
+                  {exp.company === "Ingenium Systems" && (
+                    <div className="mb-6">
+                      <motion.div 
+                        className="p-4 rounded-lg bg-gradient-to-r from-[var(--accent-primary)]/5 via-[var(--accent-secondary)]/5 to-[var(--accent-primary)]/5
+                          border border-[var(--accent-primary)]/10"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="flex flex-col gap-3">
+                          <div className="flex items-start gap-2">
+                            <span className="text-[var(--accent-secondary)] mt-1">Note:</span>
+                            <div>
+                              <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                                As the sole founder and operator of Ingenium Systems, I independently manage and deliver customized website solutions to clients.
+                                <br className="hidden md:block" />
+                                Currently, I have paused operations at Ingenium Systems to focus on personal matters.
+                              </p>
+                            </div>
+                          </div>
+                          
+                          <motion.a
+                            href="https://www.ingeniumsystems.com.au"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-sm text-[var(--accent-secondary)] 
+                              hover:text-[var(--accent-primary)] transition-colors group w-fit"
+                            whileHover={{ x: 5 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                          >
+                            Explore Ingenium Systems
+                            <ExternalLink size={14} className="opacity-50 group-hover:opacity-100 transition-opacity" />
+                          </motion.a>
+                        </div>
+                      </motion.div>
+                    </div>
+                  )}
 
                   {/* Skills - Minimal Inline Design */}
                   <div className="mb-6 overflow-x-auto scrollbar-hide">

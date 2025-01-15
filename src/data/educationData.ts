@@ -1,7 +1,6 @@
 import { Education } from '../types/education';
 import Cert1 from '../assets/cert1.pdf';
 import Cert2 from '../assets/cert2.pdf';
-import Resume from '../assets/Resume.pdf';
 
 export const educationData: Education[] = [
   {

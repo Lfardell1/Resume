@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import{ useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, ArrowLeft, ChevronLeft, ChevronRight, 
-  Calendar, Clock, Tag, X, Filter 
+  Calendar, Clock, Tag,
 } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { useBlog } from '../hooks/useBlog';
@@ -15,7 +15,7 @@ const Blog = () => {
   const {
     posts,
     loading,
-    error,
+  
     currentPage,
     totalPages,
     searchTerm,
@@ -26,7 +26,7 @@ const Blog = () => {
   } = useBlog(1, 9);
 
   const [selectedPost, setSelectedPost] = useState<any>(null);
-  const [showFilters, setShowFilters] = useState(false);
+
 
   // Get unique tags from all posts
   const allTags = Array.from(

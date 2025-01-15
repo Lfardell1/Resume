@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Twitter, Facebook, Link, Check } from 'react-feather';
 import { motion, AnimatePresence } from 'framer-motion';
 

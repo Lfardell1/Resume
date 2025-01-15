@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const TableOfContents = ({ content }: { content: string }) => {
   const [headings, setHeadings] = useState<Array<{ id: string, text: string }>>([]);

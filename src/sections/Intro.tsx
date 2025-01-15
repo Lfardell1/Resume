@@ -1,26 +1,10 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Download, Mail, ChevronDown, ArrowRight } from 'react-feather';
-import { Link } from 'react-router-dom';
+import { Download, Mail, ChevronDown } from 'react-feather';
+
 import { useState, useRef } from 'react';
 import Resume from '../assets/Resume.pdf';
 
 
-// Could be used -- Not currently used
-const ImmediateValue = () => (
-  <motion.div 
-    className="absolute top-0 right-0 m-4 p-4 bg-[var(--bg-secondary)]/90 backdrop-blur-sm rounded-lg border border-[var(--accent-primary)]/30"
-    initial={{ opacity: 0, x: 20 }}
-    animate={{ opacity: 1, x: 0 }}
-    transition={{ delay: 1 }}
-  >
-    <h4 className="text-[var(--accent-secondary)] font-semibold mb-2">Ready to Contribute</h4>
-    <ul className="text-[var(--text-secondary)] text-sm">
-      <li>• Investigation expertise</li>
-      <li>• Technical innovation</li>
-      <li>• Process automation</li>
-    </ul>
-  </motion.div>
-);
 
 
 const Intro = () => {

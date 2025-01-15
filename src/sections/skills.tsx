@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { Code, Search, Users, Shield, Tool, Eye, ChevronDown } from "react-feather";
-import { motion, AnimatePresence } from 'framer-motion';
+
+import { Code, Search, Users, Shield, Tool, Eye } from "react-feather";
+
 
 const Skills = () => {
-  const [expandedCategory, setExpandedCategory] = useState<number | null>(null);
-  const isMobile = window.innerWidth <= 768;
+
   
   const skillCategories = [
     {

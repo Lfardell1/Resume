@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, BookOpen, Briefcase, Code, Award, Move } from 'react-feather';
 import { motion, AnimatePresence } from 'framer-motion';
-
+import resume from "../assets/Resume.pdf"
 interface TLDRModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -185,7 +185,7 @@ const TLDRModal: React.FC<TLDRModalProps> = ({ isOpen, onClose }) => {
                         LinkedIn Profile
                       </a>
                       <button
-                        onClick={onClose}
+                        onClick={() => window.open(resume, '_blank')}
                         className="flex-1 px-6 py-3 rounded-xl text-lg
                                  bg-slate-700 text-white text-center font-medium
                                  hover:bg-slate-600 transition-colors"
