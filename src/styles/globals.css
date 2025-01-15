@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme variables and core styles */
+:root {
+    /* Color Palette */
+    --bg-primary: #0A0F1C;
+    --bg-secondary: #151C2C;
+    --accent-primary: #3B82F6;
+    --accent-secondary: #60A5FA;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --border-color: #1E293B;
+  
+    /* Layout Measurements */
+    --content-width-xl: 1440px;
+    --content-width-lg: 1200px;
+    --content-width-md: 960px;
+    --content-width-sm: 640px;
+    
+    /* Spacing Scale */
+    --spacing-xs: clamp(0.5rem, 1vw, 0.75rem);
+    --spacing-sm: clamp(0.75rem, 1.5vw, 1rem);
+    --spacing-md: clamp(1rem, 2vw, 1.5rem);
+    --spacing-lg: clamp(1.5rem, 3vw, 2.5rem);
+    --spacing-xl: clamp(2rem, 4vw, 3rem);
+  }
+  
+  /* Base styles */
+  @layer base {
+    html {
+      font-size: 16px !important;
+      scroll-behavior: smooth;
+      scroll-padding-top: 2rem;
+    }
+    
+    @media (min-width: 1024px) {
+      html {
+        font-size: 17px !important;
+      }
+    }
+    
+    @media (min-width: 1536px) {
+      html {
+        font-size: 18px !important;
+      }
+    }
+  
+    body {
+      position: relative;
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      font-family: 'Source Sans Pro', sans-serif;
+      min-height: 100vh;
+      color: var(--text-primary);
+    }
+  }
+  
+  /* Typography Scale */
+  @layer utilities {
+    .text-heading-1 {
+      @apply font-bold;
+      font-size: clamp(2rem, 5vw, 3.5rem) !important;
+      line-height: 1.1;
+    }
+    
+    .text-heading-2 {
+      @apply font-bold;
+      font-size: clamp(1.75rem, 4vw, 3rem) !important;
+      line-height: 1.2;
+    }
+    
+    .text-heading-3 {
+      @apply font-semibold;
+      font-size: clamp(1.25rem, 3vw, 2rem) !important;
+      line-height: 1.3;
+    }
+    
+    .text-body-large {
+      font-size: clamp(1.125rem, 2.5vw, 1.35rem) !important;
+      line-height: 1.5;
+    }
+    
+    .text-body {
+      font-size: clamp(1rem, 2vw, 1.15rem) !important;
+      line-height: 1.6;
+    }
+  
+    /* Gradient Text */
+    .text-gradient {
+        /* Make the gradient text more subtle */
+    
+      @apply text-transparent bg-clip-text bg-gradient-to-br
+      from-[var(--text-primary)] 
+      via-[var(--accent-secondary)] 
+      to-[var(--accent-primary)]
+      opacity-95;
+    }
+
+    .text-gradient-hover {
+      @apply text-transparent bg-clip-text bg-gradient-to-br
+      from-[var(--text-primary)] 
+      via-[var(--accent-secondary)] 
+      to-[var(--accent-primary)]
+      opacity-96;
+    }
+  }
+  
+  /* Layout & Spacing */
+  @layer components {
+    .section {
+      @apply relative min-h-[40vh] flex flex-col justify-center;
+      padding: var(--spacing-xl) 0;
+    }
+  
+    .section-home {
+      min-height: 90vh;
+    }
+  
+    .section-contact {
+      min-height: 70vh;
+      padding-bottom: 6rem;
+    }
+  
+    .container {
+      @apply relative mx-auto px-4 md:px-6;
+      max-width: var(--content-width-lg);
+    }
+  
+    .card {
+      @apply rounded-xl border border-[var(--border-color)] 
+             backdrop-blur-sm transition-all duration-300;
+      background: rgba(var(--bg-secondary), 0.05);
+      padding: var(--spacing-md);
+      cursor: pointer;
+    }
+  
+    .card:hover {
+      border-color: rgba(var(--accent-primary), 0.5);
+    }
+  }
+  
+  /* Animations */
+  @layer utilities {
+    .animate-glow {
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+  
+    @keyframes glow {
+      from {
+        opacity: 0.5;
+      }
+      to {
+        opacity: 0.7;
+      }
+    }
+  }

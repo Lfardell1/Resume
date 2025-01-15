@@ -1,148 +1,229 @@
 import React, { useState, useEffect, useRef } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import _debounce from "lodash/debounce";
-import { Linkedin , File } from "react-feather";
-import Experience from "./Experience";
-import Intro from "./Intro";
-import Contact from "./contact";
-import Skills from "./skills";
-
-interface NavLink {
-  id: number;
-  label: string;
-}
-
-const navLinks: NavLink[] = [
-  { id: 0, label: "SUMMARY" },
-  { id: 1, label: "EXPERIENCE" },
-  { id: 2, label: "SKILLS" },
-  { id: 3, label: "CONTACT" },
-  // Add more links as needed
-];
+import { Linkedin, File, BookOpen } from "react-feather";
+import Experience from "./sections/Experience";
+import Intro from "./sections/Intro";
+import Contact from "./sections/contact";
+import Skills from "./sections/skills";
+import Certifications from "./sections/Certifications";
+import Blog from "./sections/Blog";
+import TLDRModal, { FloatingTLDRButton } from './components/TLDRModal';
+import Sidebar from "./components/Sidebar";
+import './styles/globals.css';
 
 const App: React.FC = () => {
-  const [selectedItem, setSelectedItem] = useState<number>(0);
-  const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(0);
+  const mainRef = useRef<HTMLDivElement>(null);
+  const [isTLDROpen, setIsTLDROpen] = useState(false);
 
-  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const index = contentRefs.current.indexOf(entry.target as HTMLDivElement);
-        if (index !== -1) {
+  const navLinks = [
+    { id: "about", label: "ABOUT" },
+    { id: "certifications", label: "CERTIFICATIONS" },
+    { id: "experience", label: "EXPERIENCE" },
+    { id: "skills", label: "SKILLS" },
+    { id: "contact", label: "CONTACT" },
+  ];
+ 
+  useEffect(() => {
+    const handleScroll = _debounce(() => {
+      if (!mainRef.current) return;
+
+      const sections = navLinks.map(link => 
+        document.getElementById(link.id)
+      ).filter(Boolean);
+
+      const scrollPosition = window.scrollY + 100;
+
+      sections.forEach((section, index) => {
+        if (!section) return;
+        
+        const sectionTop = section.offsetTop;
+        const sectionBottom = sectionTop + section.offsetHeight;
+
+        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
           setSelectedItem(index);
         }
-      }
-    });
-  };
+      });
+    }, 100);
 
-  useEffect(() => {
-    const observerOptions = {
-      root: null, // Use the viewport as the root
-      rootMargin: "-50% 0px -50% 0px", // Trigger when 50% of the element is visible
-    };
-
-    const observer = new IntersectionObserver(handleIntersection, observerOptions);
-
-    contentRefs.current = contentRefs.current.slice(0, navLinks.length);
-    contentRefs.current.forEach(ref => {
-      if (ref) {
-        observer.observe(ref);
-      }
-    });
-
-    return () => {
-      observer.disconnect();
-    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-     
+  const ScrollProgress = () => {
+    const [scroll, setScroll] = useState(0);
 
-  return (
-    <div className="bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black">
-      <div className="flex flex-col md:flex-row overflow-hidden">
-      <div className="md:hidden text-center mb-8">
-  <div className="text-xl text-slate-400 font-Cousine">
-    <p className="text-3xl mb-3 md:text-6xl text-slate-200 underline underline-offset-8 font-Cousine">
-      Leon Fardell
-    </p>
-    <p className="text-xl  mb-3 md:text-4xl text-slate-400 underline underline-offset-8 font-Cousine">
-      Insurance Agent
-    </p>
-    <p className="text-lg  mb-3 md:text-2xl text-slate-200 underline underline-offset-8 font-Cousine">
-      Software Developer
-    </p>
-    <div className="mt-10 flex justify-center items-center">
-                  <a href="https://www.linkedin.com/in/leon-fardell-1851a2194/" className="mr-10">
-                  <Linkedin size={30}/>
-                  </a>
-                  <a href="#" className="text-2xl mt-3">Resume</a>
-                </div>
+    useEffect(() => {
+      const handleScroll = () => {
+        const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const currentScroll = window.scrollY;
+        setScroll((currentScroll / totalScroll) * 100);
+      };
 
-  </div>
-</div>
-        <div className="md:w-2/6 p-6 hidden md:flex flex-col justify-center items-center">
-          
-          <div className="fixed left-30 top-60 h-screen p-6">
-            <div className="text-center mb-8">
-              <div className="text-xl text-slate-400 font-Cousine">
-                <p className="text-3xl mb-3 md:text-6xl text-slate-200 underline underline-offset-8 font-Cousine">
-                  Leon Fardell
-                </p>
-                <p className="text-xl  mb-3 md:text-4xl text-slate-400 underline underline-offset-8 font-Cousine">
-                  Insurance Agent
-                </p>
-                <p className="text-lg  mb-3 md:text-2xl text-slate-200 underline underline-offset-8 font-Cousine">
-                  Software Developer
-                </p>
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
-                <div className="mt-10 flex justify-center items-center">
-                  <a href="https://www.linkedin.com/in/leon-fardell-1851a2194/" className="mr-10">
-                  <Linkedin size={48}/>
-                  </a>
-                  <a href="#" className="text-2xl">Resume</a>
-                </div>
-
-              </div>
-                              
-              {navLinks.map((link, index) => (
-                <a
-                  key={link.id}
-                  href={`#${link.id}`}
-                  className={`block my-10 text-2xl relative font-Cousine ${
-                    selectedItem === index ? "text-3xl text-gray-300" : "text-gray-300"
-                  } transition-all duration-300 hover:text-gray-500`}
-                  onClick={() => setSelectedItem(index)}
-                >
-                  {link.label}
-                </a>
-              ))}
-
-
-
-            </div>
-          </div>
-        </div>
-        <div className="w-full md:w-4/6 p-6 overflow-y-auto">
-          {navLinks.map((link, index) => (
-            <div
-              key={link.id}
-              ref={(ref) => (contentRefs.current[index] = ref)}
-              id={link.id.toString()}
-              className={`text-center content-section mb-60 `}
-            >
-              {index === 0 && <Intro />}
-
-              {index === 1 && <Experience />}
-              
-              {index === 2 && <Skills />}
-
-              {index === 3 && <Contact />}
-
-              {/* Add more content sections as needed */}
-            </div>
-          ))}
-        </div>
+    return (
+      <div className="fixed top-0 left-0 w-full h-1 bg-slate-800 z-50">
+        <div 
+          className="h-full bg-purple-500"
+          style={{ width: `${scroll}%` }}
+        />
       </div>
-    </div>
+    );
+  };
+
+ return (
+    <Router>
+      <Routes>
+        <Route path="/" element={
+          <div className="flex flex-col md:flex-row bg-[var(--bg-primary)] min-h-screen">
+            <Sidebar selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
+            
+            {/* Add TLDR Button */}
+            <FloatingTLDRButton onClick={() => setIsTLDROpen(true)} />
+
+            {/* Add TLDR Modal */}
+            <TLDRModal 
+              isOpen={isTLDROpen}
+              onClose={() => setIsTLDROpen(false)}
+            />
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden fixed top-4 right-4 z-50">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="p-2 rounded-lg bg-slate-800/50 text-slate-300"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  {isMenuOpen ? (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  ) : (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  )}
+                </svg>
+              </button>
+            </div>
+
+            {/* Mobile Menu */}
+            <div
+              className={`md:hidden fixed inset-0 z-40 bg-[var(--bg-primary)]/95 backdrop-blur-sm transform ${
+                isMenuOpen ? "translate-x-0" : "-translate-x-full"
+              } transition-transform duration-300 ease-in-out`}
+            >
+              <nav className="flex flex-col p-8">
+                {navLinks.map((link, index) => (
+                  <a
+                    key={link.id}
+                    href={`#${link.id}`}
+                    className={`py-3 px-4 my-2 rounded-lg text-lg ${
+                      selectedItem === index
+                        ? "bg-slate-800/80 text-white"
+                        : "text-slate-400"
+                    }`}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setSelectedItem(index);
+                    }}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+
+            {/* Desktop Sidebar */}
+            <div className="hidden md:block md:w-72 fixed h-screen bg-slate-900/95 backdrop-blur-sm border-r border-slate-700/50">
+              <div className="h-full flex flex-col p-8">
+                <div className="mb-12">
+                  <h1 className="text-3xl font-sans font-bold text-white mb-2">
+                    Leon Fardell
+                  </h1>
+                  <p className="text-lg font-body text-slate-400">
+                    Insurance Agent & Software Developer
+                  </p>
+                </div>
+                
+                <nav className="flex-1">
+                  {navLinks.map((link, index) => (
+                    <a
+                      key={link.id}
+                      href={`#${link.id}`}
+                      className={`block py-3 px-4 my-2 rounded-lg font-body text-lg
+                        ${selectedItem === index 
+                          ? "bg-slate-800/80 text-white border-l-2 border-slate-400" 
+                          : "text-slate-400 hover:text-white hover:bg-slate-800/50"
+                        } transition-all duration-300`}
+                      onClick={() => setSelectedItem(index)}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                  <span
+                    className="flex items-center py-3 px-4 my-2 rounded-lg font-body text-lg text-slate-600 cursor-not-allowed"
+                  >
+                    <BookOpen size={18} className="mr-2" />
+                    BLOG (Coming Soon)
+                  </span>
+                </nav>
+
+                <div className="flex space-x-4 mt-auto">
+                  <a href="https://www.linkedin.com/in/leon-fardell-1851a2194/" 
+                  target="_blank"
+                     className="text-slate-400 hover:text-white transition-colors duration-300">
+                    <Linkedin size={24}/>
+                  </a>
+                  <a href="#" 
+                     className="text-slate-400 hover:text-white transition-colors duration-300">
+                    <File size={24}/>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Main Content */}
+            <main ref={mainRef} className="flex-1 md:ml-72">
+              <div id="about">
+                <Intro />
+              </div>
+              <div id="certifications">
+                <Certifications />
+              </div>
+              <div id="experience">
+                <Experience />
+              </div>
+              <div id="skills">
+                <Skills />
+              </div>
+              <div id="contact">
+                <Contact />
+              </div>
+            </main>
+          </div>
+        } />
+        {/* Route temporarily disabled wh ile blog is in development */}
+     <Route path="/blog" element={<Blog />} />
+      </Routes>
+      <ScrollProgress />
+    </Router>
   );
 };
 
