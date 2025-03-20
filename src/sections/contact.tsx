@@ -6,14 +6,14 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: <Mail className="w-6 h-6" />,
-      title: "Email",
-      value: "Leonfardell134@gmail.com",
-      link: "mailto:Leonfardell134@gmail.com"
+      title: "Email - using firefox relay to ensure privacy",
+      value: "nbo0c1vbp@mozmail.com",
+      link: null
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Location",
-      value: "Newcastle, NSW",
+      value: "New South Wales, Australia",
       link: null
     },
     {

@@ -75,7 +75,7 @@ const Experience = () => {
                           </div>
                           
                           <motion.a
-                            href="https://www.ingeniumsystems.com.au"
+                            href="https://ingeniumtech.solutions"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 text-sm text-[var(--accent-secondary)] 

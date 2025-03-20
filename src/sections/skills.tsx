@@ -1,4 +1,3 @@
-
 import { Code, Search, Users, Shield, Tool, Eye } from "react-feather";
 
 
@@ -9,17 +8,24 @@ const Skills = () => {
     {
       icon: <Code size={24} />,
       title: "Computer Science",
-      description: "Technical skills in programming and web development",
+      description: "Comprehensive foundation in theoretical and applied computer science",
       skills: [
-        'Python',
-        'Django',
-        'Golang',
-        'Flask',
-        'React',
-        'TypeScript',
-        'Full Stack',
-        'HTML',
-        'CSS - Tailwind',
+        'Data Structures & Algorithms',
+        'Computer Architecture',
+        'Operating Systems',
+        'Penetration Testing & Security',
+        'Network Security Analysis',
+        'Vulnerability Assessment',
+        'C++ Development',
+        'Golang Systems Programming',
+        'SQL & NoSQL Databases',
+        'API Architecture & Design',
+        'Git Version Control',
+        'Docker & Containerization',
+        'Python & TypeScript',
+        'React & Modern Web',
+        'System Design & Architecture',
+        'Software Engineering',
       ]
     },
     {
